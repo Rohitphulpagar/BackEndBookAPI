@@ -21,10 +21,7 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-  .connect(process.env.MONGODB_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URL)
   .then(() => {
     console.log("App connected to the database");
   })
@@ -50,6 +47,8 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(4000, () => {
+PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
   console.log("Server is running");
 });
