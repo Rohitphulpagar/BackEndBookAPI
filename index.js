@@ -11,15 +11,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
 
-//first method
-//app.use(cors());
-
-//custom origin
 app.use(
   cors({
     origin: "*",
-    methods: ["POST", "DELETE", "PUT", "GET"],
-    allowedHeaders: ["Content-Type"],
   })
 );
 app.get("/", (req, res) => {
@@ -27,7 +21,10 @@ app.get("/", (req, res) => {
 });
 
 mongoose
-  .connect(process.env.MONGODB_URL)
+  .connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("App connected to the database");
   })
